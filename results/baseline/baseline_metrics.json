@@ -1,0 +1,12 @@
+{
+  "step": "baseline",
+  "artifacts_dir": "artifacts/ml1m_binary",
+  "results_dir": "results/baseline",
+  "elapsed_seconds": 2.8621901250007795,
+  "num_items": 3533,
+  "num_users": 6038,
+  "top_k": 10,
+  "nonzero_intersection_pairs": 3912886,
+  "all_item_pairs": 6239278,
+  "created_at_epoch": 1775034427.7631738
+}

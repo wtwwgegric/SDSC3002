@@ -1,0 +1,27 @@
+{
+  "step": "lsh",
+  "artifacts_dir": "artifacts/ml1m_binary",
+  "results_dir": "results/lsh_k120_b30_r4",
+  "signature_seconds": 0.16580229099781718,
+  "candidate_seconds": 0.12924954199843341,
+  "verification_seconds": 0.12860324999928707,
+  "total_seconds": 0.42365508299553767,
+  "num_items": 3533,
+  "num_hashes": 120,
+  "seed": 42,
+  "bands": 30,
+  "rows_per_band": 4,
+  "num_candidates": 2358,
+  "num_nontrivial_buckets": 1693,
+  "max_bucket_size": 17,
+  "mean_bucket_size": 2.603662138216184,
+  "verified_pairs": 2358,
+  "top_k": 10,
+  "signature_quality": {
+    "samples": 200,
+    "mean_absolute_error": 0.00641908188470165,
+    "pearson_correlation": 0.9001926320630891
+  },
+  "created_at_epoch": 1775034498.088385,
+  "recall_at_k": 0.04500679347826087
+}
