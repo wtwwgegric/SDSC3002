@@ -1,0 +1,5 @@
+{
+  "samples": 200,
+  "mean_absolute_error": 0.0047159417909150006,
+  "pearson_correlation": 0.9386273218449176
+}

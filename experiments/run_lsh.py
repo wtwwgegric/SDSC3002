@@ -6,16 +6,9 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-from src.baseline import export_neighbors
-from src.lsh import (
-    approximate_topk_from_candidates,
-    compute_minhash_signatures,
-    generate_lsh_candidates,
-    recall_at_k,
-    sample_signature_quality,
-)
+from src.pipeline import run_lsh_pipeline
 from src.preprocess import load_preprocessed_artifacts
-from src.utils import build_run_metadata, ensure_dir, load_json, save_json, timer
+from src.utils import ensure_dir, load_json
 
 
 def parse_args() -> argparse.Namespace:
@@ -36,62 +29,21 @@ def main() -> None:
     args = parse_args()
     ensure_dir(args.results_dir)
     matrix, metadata = load_preprocessed_artifacts(args.artifacts_dir)
-
-    with timer() as signature_timing:
-        signatures, signature_metrics = compute_minhash_signatures(
-            matrix,
-            num_hashes=args.num_hashes,
-            seed=args.seed,
-        )
-
-    signature_quality = sample_signature_quality(
-        matrix,
-        signatures,
-        num_samples=args.quality_samples,
+    baseline_payload = load_json(args.baseline) if args.baseline else None
+    metrics, _ = run_lsh_pipeline(
+        item_user_matrix=matrix,
+        item_ids=metadata["item_ids"],
+        num_hashes=args.num_hashes,
+        bands=args.bands,
+        rows_per_band=args.rows_per_band,
+        top_k=args.top_k,
         seed=args.seed,
-    )
-
-    with timer() as candidate_timing:
-        candidates, candidate_metrics = generate_lsh_candidates(
-            signatures,
-            bands=args.bands,
-            rows_per_band=args.rows_per_band,
-        )
-
-    with timer() as verification_timing:
-        approx_neighbors, approx_metrics = approximate_topk_from_candidates(
-            matrix,
-            candidates,
-            top_k=args.top_k,
-        )
-
-    approx_payload = export_neighbors(approx_neighbors, item_ids=metadata["item_ids"], top_k=args.top_k)
-    save_json(f"{args.results_dir}/approx_topk.json", approx_payload)
-    save_json(f"{args.results_dir}/signature_quality.json", signature_quality)
-
-    metrics = build_run_metadata(
-        step="lsh",
-        artifacts_dir=args.artifacts_dir,
+        quality_samples=args.quality_samples,
+        baseline_payload=baseline_payload,
         results_dir=args.results_dir,
-        signature_seconds=signature_timing["elapsed_seconds"],
-        candidate_seconds=candidate_timing["elapsed_seconds"],
-        verification_seconds=verification_timing["elapsed_seconds"],
-        total_seconds=(
-            signature_timing["elapsed_seconds"]
-            + candidate_timing["elapsed_seconds"]
-            + verification_timing["elapsed_seconds"]
-        ),
-        **signature_metrics,
-        **candidate_metrics,
-        **approx_metrics,
-        signature_quality=signature_quality,
+        save_neighbors=True,
     )
-
-    if args.baseline:
-        baseline_payload = load_json(args.baseline)
-        metrics["recall_at_k"] = recall_at_k(baseline_payload, approx_payload, k=args.top_k)
-
-    save_json(f"{args.results_dir}/lsh_metrics.json", metrics)
+    metrics["artifacts_dir"] = args.artifacts_dir
     print(metrics)
 
 

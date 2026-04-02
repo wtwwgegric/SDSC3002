@@ -25,7 +25,9 @@ SDSC3002/
 ├── experiments/
 │   ├── run_preprocess.py
 │   ├── run_baseline.py
-│   └── run_lsh.py
+│   ├── run_lsh.py
+│   ├── run_sweep.py
+│   └── plot_sweep.py
 ├── artifacts/
 ├── results/
 ├── data/
@@ -121,7 +123,42 @@ For each run, record:
 - verification time
 - total runtime
 - candidate count
+- candidate ratio
 - recall@10
+
+### 4. Run an automated parameter sweep
+
+```bash
+python experiments/run_sweep.py \
+	--artifacts-dir artifacts/ml1m_binary \
+	--results-dir results/sweeps/default_grid \
+	--baseline results/baseline/exact_topk.json \
+	--baseline-metrics results/baseline/baseline_metrics.json \
+	--num-hashes 100 200 \
+	--bands 10 20 30 40 50 60
+```
+
+The sweep runner automatically skips invalid combinations where `bands` does not divide `num_hashes` exactly.
+
+This produces:
+
+- `sweep_summary.csv`
+- `sweep_summary.json`
+- per-run metrics under `results/sweeps/default_grid/runs/`
+
+### 5. Plot the sweep results
+
+```bash
+python experiments/plot_sweep.py \
+	--summary-csv results/sweeps/default_grid/sweep_summary.csv \
+	--output-dir results/sweeps/default_grid/plots
+```
+
+This produces three report-ready figures:
+
+- `recall_vs_time.png`
+- `recall_vs_candidate_ratio.png`
+- `verification_vs_candidates.png`
 
 ## Main Output Files
 

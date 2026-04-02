@@ -1,0 +1,28 @@
+{
+  "step": "lsh",
+  "signature_seconds": 0.2864503339951625,
+  "candidate_seconds": 0.2112771249958314,
+  "verification_seconds": 0.25503312500950415,
+  "total_seconds": 0.7527605840004981,
+  "all_item_pairs": 6239278,
+  "candidate_ratio": 0.000753933387805448,
+  "num_items": 3533,
+  "num_hashes": 200,
+  "seed": 42,
+  "bands": 50,
+  "rows_per_band": 4,
+  "num_candidates": 4704,
+  "num_nontrivial_buckets": 3034,
+  "max_bucket_size": 15,
+  "mean_bucket_size": 2.651285431773237,
+  "verified_pairs": 4704,
+  "top_k": 10,
+  "signature_quality": {
+    "samples": 200,
+    "mean_absolute_error": 0.0047159417909150006,
+    "pearson_correlation": 0.9386273218449176
+  },
+  "created_at_epoch": 1775150853.692638,
+  "recall_at_k": 0.06852921195652174,
+  "results_dir": "results/sweeps/default_grid/runs/k200_b50_r4"
+}
