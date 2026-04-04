@@ -1,0 +1,12 @@
+{
+  "step": "baseline",
+  "artifacts_dir": "artifacts/amazon_musical_instruments_5core",
+  "results_dir": "results/amazon_musical_instruments_5core/baseline",
+  "elapsed_seconds": 0.6401322090096073,
+  "num_items": 10606,
+  "num_users": 27449,
+  "top_k": 10,
+  "nonzero_intersection_pairs": 768843,
+  "all_item_pairs": 56238315,
+  "created_at_epoch": 1775160606.5149372
+}

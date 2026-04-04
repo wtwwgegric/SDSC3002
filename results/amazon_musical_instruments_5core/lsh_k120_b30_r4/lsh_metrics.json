@@ -1,0 +1,31 @@
+{
+  "step": "lsh",
+  "signature_seconds": 0.1013757920009084,
+  "candidate_seconds": 0.4528701669914881,
+  "verification_seconds": 0.02827570799854584,
+  "total_seconds": 0.5825216669909423,
+  "all_item_pairs": 56238315,
+  "candidate_ratio": 4.694308497685252e-06,
+  "num_items": 10606,
+  "num_hashes": 120,
+  "seed": 42,
+  "bands": 30,
+  "rows_per_band": 4,
+  "num_candidates": 264,
+  "num_nontrivial_buckets": 2079,
+  "max_bucket_size": 5,
+  "mean_bucket_size": 2.0548340548340547,
+  "verified_pairs": 264,
+  "top_k": 10,
+  "verification_mode": "batched_sparse_dot",
+  "verification_batches": 232,
+  "verify_batch_size": 2048,
+  "signature_quality": {
+    "samples": 200,
+    "mean_absolute_error": 0.0,
+    "pearson_correlation": NaN
+  },
+  "created_at_epoch": 1775160639.994072,
+  "recall_at_k": 0.00452758702344305,
+  "results_dir": "results/amazon_musical_instruments_5core/lsh_k120_b30_r4"
+}

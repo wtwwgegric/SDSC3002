@@ -22,6 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--baseline", help="Path to exact_topk.json for recall evaluation")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for hash generation and sampling")
     parser.add_argument("--quality-samples", type=int, default=200, help="Sample size for MinHash quality check")
+    parser.add_argument("--verify-batch-size", type=int, default=2048, help="Batch size for candidate verification")
     return parser.parse_args()
 
 
@@ -39,6 +40,7 @@ def main() -> None:
         top_k=args.top_k,
         seed=args.seed,
         quality_samples=args.quality_samples,
+        verify_batch_size=args.verify_batch_size,
         baseline_payload=baseline_payload,
         results_dir=args.results_dir,
         save_neighbors=True,

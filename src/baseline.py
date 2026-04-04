@@ -73,11 +73,11 @@ def export_neighbors(neighbors: Iterable[Iterable[dict]], item_ids: list[int], t
         exported.append(
             {
                 "item_index": item_index,
-                "item_id": int(item_ids[item_index]),
+                "item_id": item_ids[item_index],
                 "neighbors": [
                     {
                         "neighbor_index": int(entry["neighbor_index"]),
-                        "neighbor_item_id": int(item_ids[entry["neighbor_index"]]),
+                        "neighbor_item_id": item_ids[entry["neighbor_index"]],
                         "score": float(entry["score"]),
                     }
                     for entry in neighbor_list

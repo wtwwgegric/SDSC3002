@@ -35,6 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-k", type=int, default=10, help="Neighbors to keep per item")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
     parser.add_argument("--quality-samples", type=int, default=200, help="Sample size for MinHash quality checks")
+    parser.add_argument("--verify-batch-size", type=int, default=2048, help="Batch size for candidate verification")
     parser.add_argument(
         "--save-neighbors",
         action="store_true",
@@ -102,6 +103,7 @@ def main() -> None:
             top_k=args.top_k,
             seed=args.seed,
             quality_samples=args.quality_samples,
+            verify_batch_size=args.verify_batch_size,
             baseline_payload=baseline_payload,
             results_dir=run_root / run_name,
             save_neighbors=args.save_neighbors,

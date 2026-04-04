@@ -24,6 +24,7 @@ def run_lsh_pipeline(
     top_k: int,
     seed: int = 42,
     quality_samples: int = 200,
+    verify_batch_size: int = 2048,
     baseline_payload: dict | None = None,
     results_dir: str | Path | None = None,
     save_neighbors: bool = True,
@@ -59,6 +60,7 @@ def run_lsh_pipeline(
             item_user_matrix,
             candidates,
             top_k=top_k,
+            verify_batch_size=verify_batch_size,
         )
 
     approx_payload = export_neighbors(approx_neighbors, item_ids=item_ids, top_k=top_k)

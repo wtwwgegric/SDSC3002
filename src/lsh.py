@@ -60,13 +60,15 @@ def sample_signature_quality(
     estimated_scores = []
     seen_pairs: set[tuple[int, int]] = set()
 
-    while len(seen_pairs) < sample_count:
-        i, j = sorted(rng.choice(num_items, size=2, replace=False).tolist())
-        pair = (i, j)
-        if pair in seen_pairs:
-            continue
-        seen_pairs.add(pair)
+    intersections = (item_user_matrix.astype(np.uint16) @ item_user_matrix.astype(np.uint16).T).tocoo()
+    nonzero_pairs = [
+        (int(i), int(j))
+        for i, j in zip(intersections.row, intersections.col, strict=False)
+        if i < j
+    ]
+    rng.shuffle(nonzero_pairs)
 
+    def record_pair(i: int, j: int) -> None:
         row_i = item_user_matrix.indices[item_user_matrix.indptr[i] : item_user_matrix.indptr[i + 1]]
         row_j = item_user_matrix.indices[item_user_matrix.indptr[j] : item_user_matrix.indptr[j + 1]]
         intersection = np.intersect1d(row_i, row_j, assume_unique=True).size
@@ -75,14 +77,29 @@ def sample_signature_quality(
         estimated = estimate_jaccard(signatures, i, j)
         exact_scores.append(exact)
         estimated_scores.append(estimated)
+        seen_pairs.add((i, j))
+
+    for i, j in nonzero_pairs[:sample_count]:
+        record_pair(i, j)
+
+    while len(seen_pairs) < sample_count:
+        i, j = sorted(rng.choice(num_items, size=2, replace=False).tolist())
+        pair = (i, j)
+        if pair in seen_pairs:
+            continue
+        record_pair(i, j)
 
     exact_array = np.asarray(exact_scores, dtype=float)
     estimated_array = np.asarray(estimated_scores, dtype=float)
     mae = float(np.mean(np.abs(exact_array - estimated_array))) if exact_array.size else 0.0
-    correlation = float(np.corrcoef(exact_array, estimated_array)[0, 1]) if exact_array.size > 1 else 0.0
+    if exact_array.size > 1 and np.std(exact_array) > 0 and np.std(estimated_array) > 0:
+        correlation = float(np.corrcoef(exact_array, estimated_array)[0, 1])
+    else:
+        correlation = 0.0
 
     return {
         "samples": int(sample_count),
+        "nonzero_pairs_available": int(len(nonzero_pairs)),
         "mean_absolute_error": mae,
         "pearson_correlation": correlation,
     }
@@ -150,24 +167,46 @@ def approximate_topk_from_candidates(
     item_user_matrix: sparse.csr_matrix,
     candidates: list[tuple[int, int]],
     top_k: int,
+    verify_batch_size: int = 2048,
 ) -> tuple[list[list[dict]], dict]:
-    support = np.diff(item_user_matrix.indptr).astype(np.int32)
-    heaps: list[list[tuple[float, int]]] = [[] for _ in range(item_user_matrix.shape[0])]
+    binary_matrix = item_user_matrix.astype(np.uint16, copy=False)
+    support = np.diff(binary_matrix.indptr).astype(np.int32)
+    heaps: list[list[tuple[float, int]]] = [[] for _ in range(binary_matrix.shape[0])]
+    grouped_candidates: dict[int, list[int]] = defaultdict(list)
     verified_pairs = 0
+    batch_count = 0
 
     for item_a, item_b in candidates:
-        row_a = item_user_matrix[item_a]
-        row_b = item_user_matrix[item_b]
-        intersection = int(row_a.multiply(row_b).sum())
-        if intersection == 0:
-            continue
-        union = int(support[item_a] + support[item_b] - intersection)
-        if union <= 0:
-            continue
-        score = float(intersection / union)
-        verified_pairs += 1
-        _push_topk(heaps, item_a, item_b, score, top_k)
-        _push_topk(heaps, item_b, item_a, score, top_k)
+        grouped_candidates[item_a].append(item_b)
+
+    for item_a, neighbor_indices in grouped_candidates.items():
+        row_a = binary_matrix.getrow(item_a)
+        for start in range(0, len(neighbor_indices), verify_batch_size):
+            batch = neighbor_indices[start : start + verify_batch_size]
+            batch_count += 1
+            intersections = (binary_matrix[batch] @ row_a.T).toarray().ravel().astype(np.int32)
+            if not intersections.size:
+                continue
+            valid_mask = intersections > 0
+            if not np.any(valid_mask):
+                continue
+
+            valid_neighbors = np.asarray(batch, dtype=np.int32)[valid_mask]
+            valid_intersections = intersections[valid_mask]
+            unions = support[item_a] + support[valid_neighbors] - valid_intersections
+            positive_union_mask = unions > 0
+            if not np.any(positive_union_mask):
+                continue
+
+            final_neighbors = valid_neighbors[positive_union_mask]
+            final_intersections = valid_intersections[positive_union_mask]
+            final_unions = unions[positive_union_mask]
+            scores = final_intersections / final_unions
+            verified_pairs += int(final_neighbors.size)
+
+            for neighbor_index, score in zip(final_neighbors.tolist(), scores.tolist(), strict=False):
+                _push_topk(heaps, item_a, neighbor_index, float(score), top_k)
+                _push_topk(heaps, neighbor_index, item_a, float(score), top_k)
 
     neighbors: list[list[dict]] = []
     for heap in heaps:
@@ -185,6 +224,9 @@ def approximate_topk_from_candidates(
     metrics = {
         "verified_pairs": int(verified_pairs),
         "top_k": int(top_k),
+        "verification_mode": "batched_sparse_dot",
+        "verification_batches": int(batch_count),
+        "verify_batch_size": int(verify_batch_size),
     }
     return neighbors, metrics
 

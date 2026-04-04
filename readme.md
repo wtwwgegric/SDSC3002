@@ -4,7 +4,7 @@ This repository implements a reproducible pipeline for accelerating item-item si
 
 ## Project Scope
 
-- Dataset: MovieLens 1M under `data/ml-1m/`
+- Datasets: MovieLens 1M under `data/ml-1m/` and optional Amazon review subsets under `data/amazon/`
 - Task: build top-k similar items for item-based collaborative filtering
 - Exact metric: Jaccard similarity on binarized user preference sets
 - Approximation: MinHash signatures + LSH banding + exact verification on candidates
@@ -52,6 +52,8 @@ pip install -r requirements.txt
 
 The code expects MovieLens 1M to exist at `data/ml-1m/ratings.dat`.
 
+Optional extension dataset: Amazon Review Data 2018 category subsets in JSON.gz format. A practical next step is to use a 5-core category file such as `Video_Games_5.json.gz` or `Musical_Instruments_5.json.gz` under `data/amazon/`.
+
 Important: the MovieLens 1M README states that redistribution requires separate permission. For public course deliverables, check the dataset license before re-uploading the raw files. A safer default is to publish the code, experiment outputs, and the official dataset download link.
 
 ## Run Order
@@ -61,6 +63,7 @@ Important: the MovieLens 1M README states that redistribution requires separate 
 ```bash
 python experiments/run_preprocess.py \
 	--ratings data/ml-1m/ratings.dat \
+	--dataset movielens \
 	--artifacts-dir artifacts/ml1m_binary
 ```
 
@@ -92,6 +95,7 @@ python experiments/run_lsh.py \
 	--bands 30 \
 	--rows-per-band 4 \
 	--top-k 10 \
+	--verify-batch-size 2048 \
 	--baseline results/baseline/exact_topk.json
 ```
 
@@ -101,6 +105,45 @@ This produces:
 - LSH candidate count and timing metrics
 - approximate top-k neighbors
 - recall@k against the exact baseline when `--baseline` is provided
+
+Verification note: candidate checking now uses batched sparse dot products grouped by source item. This reduces Python overhead substantially when LSH produces many candidates.
+
+## Amazon Subset Extension
+
+Recommended categories for a larger-but-still-manageable experiment:
+
+- `Musical_Instruments_5.json.gz`: medium-sized 5-core subset
+- `Video_Games_5.json.gz`: larger 5-core subset with clearer scale effect
+
+Place the downloaded file under `data/amazon/`, then preprocess it with:
+
+```bash
+python experiments/run_preprocess.py \
+	--ratings data/amazon/Video_Games_5.json.gz \
+	--dataset amazon \
+	--artifacts-dir artifacts/amazon_video_games_5core
+```
+
+Then run the baseline and LSH pipeline on the Amazon artifacts exactly as before:
+
+```bash
+python experiments/run_baseline.py \
+	--artifacts-dir artifacts/amazon_video_games_5core \
+	--results-dir results/amazon_video_games_5core/baseline \
+	--top-k 10
+
+python experiments/run_lsh.py \
+	--artifacts-dir artifacts/amazon_video_games_5core \
+	--results-dir results/amazon_video_games_5core/lsh_k120_b30_r4 \
+	--num-hashes 120 \
+	--bands 30 \
+	--rows-per-band 4 \
+	--top-k 10 \
+	--verify-batch-size 2048 \
+	--baseline results/amazon_video_games_5core/baseline/exact_topk.json
+```
+
+If the exact baseline becomes too slow on the Amazon subset, use the previously validated MovieLens exact baseline methodology for correctness on a smaller subset and position Amazon as the scale experiment for runtime and candidate-growth behavior.
 
 ## Suggested Experiment Grid
 
