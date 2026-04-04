@@ -67,6 +67,67 @@ def exact_topk_jaccard(
     return neighbors, metrics
 
 
+def naive_topk_jaccard(
+    item_user_matrix: sparse.csr_matrix,
+    top_k: int,
+    item_subset: list[int] | None = None,
+) -> tuple[list[list[dict]], dict]:
+    """Naive O(N²) brute-force Jaccard.
+
+    Operates on a (possibly small) subset of items.
+    ``item_subset`` is a list of row indices into ``item_user_matrix``.
+    Returns neighbor indices in terms of the original matrix row indices.
+    """
+    if item_subset is None:
+        item_subset = list(range(item_user_matrix.shape[0]))
+
+    n = len(item_subset)
+    # Pre-extract rows as sets of user indices for pure-Python intersection
+    rows: list[set[int]] = [
+        set(item_user_matrix.getrow(i).indices.tolist()) for i in item_subset
+    ]
+    sizes = [len(r) for r in rows]
+
+    heaps: list[list[tuple[float, int]]] = [[] for _ in range(n)]
+    pairs_evaluated = 0
+
+    for a in range(n):
+        for b in range(a + 1, n):
+            intersection = len(rows[a] & rows[b])
+            union = sizes[a] + sizes[b] - intersection
+            if union <= 0:
+                continue
+            score = intersection / union
+            pairs_evaluated += 1
+            _push_topk(heaps, a, b, score, top_k)
+            _push_topk(heaps, b, a, score, top_k)
+
+    # Map local indices back to original matrix row indices
+    neighbors: list[list[dict]] = []
+    for local_idx, heap in enumerate(heaps):
+        ranked = sorted(heap, key=lambda entry: (-entry[0], entry[1]))
+        neighbors.append(
+            [
+                {
+                    "neighbor_index": int(item_subset[local_neighbor]),
+                    "score": float(score),
+                }
+                for score, local_neighbor in ranked
+            ]
+        )
+
+    metrics = {
+        "method": "naive_brute_force",
+        "num_items_total": int(item_user_matrix.shape[0]),
+        "num_items_subset": n,
+        "num_users": int(item_user_matrix.shape[1]),
+        "top_k": int(top_k),
+        "pairs_evaluated": pairs_evaluated,
+        "all_item_pairs_subset": n * (n - 1) // 2,
+    }
+    return neighbors, metrics
+
+
 def export_neighbors(neighbors: Iterable[Iterable[dict]], item_ids: list[int], top_k: int) -> dict:
     exported = []
     for item_index, neighbor_list in enumerate(neighbors):
@@ -88,3 +149,4 @@ def export_neighbors(neighbors: Iterable[Iterable[dict]], item_ids: list[int], t
         "top_k": int(top_k),
         "items": exported,
     }
+

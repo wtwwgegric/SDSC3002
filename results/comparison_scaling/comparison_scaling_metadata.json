@@ -1,0 +1,21 @@
+{
+  "artifacts_dir": "artifacts/ml1m_binary",
+  "results_dir": "results/comparison_scaling",
+  "max_items_list": [
+    300,
+    500,
+    800,
+    1000,
+    1200,
+    1500,
+    1800,
+    2200,
+    2600,
+    3000
+  ],
+  "top_k": 10,
+  "num_hashes": 100,
+  "bands": 50,
+  "seed": 42,
+  "first_subset_where_lsh_beats_sparse_exact": 1000
+}

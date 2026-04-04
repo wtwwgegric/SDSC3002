@@ -1,0 +1,28 @@
+{
+  "subset_size": 900,
+  "num_items_total": 3533,
+  "top_k": 10,
+  "num_hashes": 100,
+  "bands": 50,
+  "rows_per_band": 2,
+  "seed": 42,
+  "naive": {
+    "time_seconds": 0.507125415984774,
+    "pairs_evaluated": 404550
+  },
+  "sparse_exact": {
+    "time_seconds": 0.1971770829986781,
+    "nonzero_intersection_pairs": 248984
+  },
+  "lsh": {
+    "time_seconds": 0.18400358301005326,
+    "signature_seconds": 0.03322416701121256,
+    "candidate_seconds": 0.049981415999354795,
+    "verification_seconds": 0.10079799999948591,
+    "num_candidates": 13437,
+    "candidate_ratio": 0.0332146829810901,
+    "recall_at_k": 0.42812604387039305
+  },
+  "speedup_lsh_vs_naive": 2.7560627227409293,
+  "speedup_lsh_vs_sparse_exact": 1.0715937144979675
+}
