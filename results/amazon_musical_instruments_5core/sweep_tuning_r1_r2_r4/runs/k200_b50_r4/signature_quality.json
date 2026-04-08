@@ -1,0 +1,6 @@
+{
+  "samples": 200,
+  "nonzero_pairs_available": 768843,
+  "mean_absolute_error": 0.008057187372088177,
+  "pearson_correlation": 0.9899156148840502
+}

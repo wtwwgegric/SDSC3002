@@ -1,0 +1,459 @@
+{
+  "artifacts_dir": "artifacts/amazon_musical_instruments_5core",
+  "baseline": "results/amazon_musical_instruments_5core/baseline/exact_topk.json",
+  "baseline_metrics": "results/amazon_musical_instruments_5core/baseline/baseline_metrics.json",
+  "configs": [
+    {
+      "num_hashes": 60,
+      "bands": 20,
+      "rows_per_band": 3
+    },
+    {
+      "num_hashes": 60,
+      "bands": 30,
+      "rows_per_band": 2
+    },
+    {
+      "num_hashes": 60,
+      "bands": 60,
+      "rows_per_band": 1
+    },
+    {
+      "num_hashes": 100,
+      "bands": 20,
+      "rows_per_band": 5
+    },
+    {
+      "num_hashes": 100,
+      "bands": 25,
+      "rows_per_band": 4
+    },
+    {
+      "num_hashes": 100,
+      "bands": 50,
+      "rows_per_band": 2
+    },
+    {
+      "num_hashes": 100,
+      "bands": 100,
+      "rows_per_band": 1
+    },
+    {
+      "num_hashes": 120,
+      "bands": 20,
+      "rows_per_band": 6
+    },
+    {
+      "num_hashes": 120,
+      "bands": 30,
+      "rows_per_band": 4
+    },
+    {
+      "num_hashes": 120,
+      "bands": 60,
+      "rows_per_band": 2
+    },
+    {
+      "num_hashes": 120,
+      "bands": 120,
+      "rows_per_band": 1
+    },
+    {
+      "num_hashes": 200,
+      "bands": 20,
+      "rows_per_band": 10
+    },
+    {
+      "num_hashes": 200,
+      "bands": 25,
+      "rows_per_band": 8
+    },
+    {
+      "num_hashes": 200,
+      "bands": 50,
+      "rows_per_band": 4
+    },
+    {
+      "num_hashes": 200,
+      "bands": 100,
+      "rows_per_band": 2
+    },
+    {
+      "num_hashes": 200,
+      "bands": 200,
+      "rows_per_band": 1
+    }
+  ],
+  "skipped_configs": [
+    {
+      "num_hashes": 60,
+      "bands": 25,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 60,
+      "bands": 50,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 60,
+      "bands": 100,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 60,
+      "bands": 120,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 60,
+      "bands": 200,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 100,
+      "bands": 30,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 100,
+      "bands": 60,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 100,
+      "bands": 120,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 100,
+      "bands": 200,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 120,
+      "bands": 25,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 120,
+      "bands": 50,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 120,
+      "bands": 100,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 120,
+      "bands": 200,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 200,
+      "bands": 30,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 200,
+      "bands": 60,
+      "reason": "bands must divide num_hashes exactly"
+    },
+    {
+      "num_hashes": 200,
+      "bands": 120,
+      "reason": "bands must divide num_hashes exactly"
+    }
+  ],
+  "rows": [
+    {
+      "run_name": "k60_b20_r3",
+      "num_hashes": 60,
+      "bands": 20,
+      "rows_per_band": 3,
+      "top_k": 10,
+      "num_candidates": 1304,
+      "candidate_ratio": 2.3187038943112004e-05,
+      "signature_seconds": 0.0688621670124121,
+      "candidate_seconds": 0.2659022079897113,
+      "verification_seconds": 0.09976749995257705,
+      "total_seconds": 0.43453187495470047,
+      "verified_pairs": 1304,
+      "recall_at_k": 0.01829978688136396,
+      "signature_mae": 0.014565549850923868,
+      "signature_corr": 0.9633424534850112,
+      "speedup_vs_baseline": 1.473153630159676
+    },
+    {
+      "run_name": "k60_b30_r2",
+      "num_hashes": 60,
+      "bands": 30,
+      "rows_per_band": 2,
+      "top_k": 10,
+      "num_candidates": 24365,
+      "candidate_ratio": 0.0004332455550988681,
+      "signature_seconds": 0.07565112499287352,
+      "candidate_seconds": 0.38843395799631253,
+      "verification_seconds": 0.6611465419991873,
+      "total_seconds": 1.1252316249883734,
+      "verified_pairs": 24365,
+      "recall_at_k": 0.18312100402557424,
+      "signature_mae": 0.014565549850923868,
+      "signature_corr": 0.9633424534850112,
+      "speedup_vs_baseline": 0.5688892800326525
+    },
+    {
+      "run_name": "k60_b60_r1",
+      "num_hashes": 60,
+      "bands": 60,
+      "rows_per_band": 1,
+      "top_k": 10,
+      "num_candidates": 435550,
+      "candidate_ratio": 0.0077447199476015595,
+      "signature_seconds": 0.07298066699877381,
+      "candidate_seconds": 1.1857091669808142,
+      "verification_seconds": 1.2994994159671478,
+      "total_seconds": 2.558189249946736,
+      "verified_pairs": 435550,
+      "recall_at_k": 0.9316978451337912,
+      "signature_mae": 0.014565549850923868,
+      "signature_corr": 0.9633424534850112,
+      "speedup_vs_baseline": 0.25022863692470587
+    },
+    {
+      "run_name": "k100_b20_r5",
+      "num_hashes": 100,
+      "bands": 20,
+      "rows_per_band": 5,
+      "top_k": 10,
+      "num_candidates": 113,
+      "candidate_ratio": 2.009306288781945e-06,
+      "signature_seconds": 0.10445050004636869,
+      "candidate_seconds": 0.3074445420061238,
+      "verification_seconds": 0.02581591601483524,
+      "total_seconds": 0.43771095806732774,
+      "verified_pairs": 113,
+      "recall_at_k": 0.0021217144210277056,
+      "signature_mae": 0.010135501978667145,
+      "signature_corr": 0.9828842516791316,
+      "speedup_vs_baseline": 1.462454154303223
+    },
+    {
+      "run_name": "k100_b25_r4",
+      "num_hashes": 100,
+      "bands": 25,
+      "rows_per_band": 4,
+      "top_k": 10,
+      "num_candidates": 280,
+      "candidate_ratio": 4.97881204299951e-06,
+      "signature_seconds": 0.10075566696468741,
+      "candidate_seconds": 0.3735082920175046,
+      "verification_seconds": 0.02466087497305125,
+      "total_seconds": 0.49892483395524323,
+      "verified_pairs": 280,
+      "recall_at_k": 0.004404451811508407,
+      "signature_mae": 0.010135501978667145,
+      "signature_corr": 0.9828842516791316,
+      "speedup_vs_baseline": 1.283023344288032
+    },
+    {
+      "run_name": "k100_b50_r2",
+      "num_hashes": 100,
+      "bands": 50,
+      "rows_per_band": 2,
+      "top_k": 10,
+      "num_candidates": 35643,
+      "candidate_ratio": 0.0006337849916022555,
+      "signature_seconds": 0.10150604095542803,
+      "candidate_seconds": 0.681519792007748,
+      "verification_seconds": 0.8124994579702616,
+      "total_seconds": 1.5955252909334376,
+      "verified_pairs": 35643,
+      "recall_at_k": 0.27175941273975845,
+      "signature_mae": 0.010135501978667145,
+      "signature_corr": 0.9828842516791316,
+      "speedup_vs_baseline": 0.4012046770096059
+    },
+    {
+      "run_name": "k100_b100_r1",
+      "num_hashes": 100,
+      "bands": 100,
+      "rows_per_band": 1,
+      "top_k": 10,
+      "num_candidates": 532763,
+      "candidate_ratio": 0.009473310144516243,
+      "signature_seconds": 0.1025478329975158,
+      "candidate_seconds": 1.9290572499739937,
+      "verification_seconds": 1.3902403329848312,
+      "total_seconds": 3.4218454159563407,
+      "verified_pairs": 532763,
+      "recall_at_k": 0.9551598389770305,
+      "signature_mae": 0.010135501978667145,
+      "signature_corr": 0.9828842516791316,
+      "speedup_vs_baseline": 0.18707221723828296
+    },
+    {
+      "run_name": "k120_b20_r6",
+      "num_hashes": 120,
+      "bands": 20,
+      "rows_per_band": 6,
+      "top_k": 10,
+      "num_candidates": 85,
+      "candidate_ratio": 1.5114250844819941e-06,
+      "signature_seconds": 0.11806770804105327,
+      "candidate_seconds": 0.32726716698380187,
+      "verification_seconds": 0.025752833986189216,
+      "total_seconds": 0.47108770901104435,
+      "verified_pairs": 85,
+      "recall_at_k": 0.0016007577551503671,
+      "signature_mae": 0.00955082442322361,
+      "signature_corr": 0.9835357043915182,
+      "speedup_vs_baseline": 1.3588386976884592
+    },
+    {
+      "run_name": "k120_b30_r4",
+      "num_hashes": 120,
+      "bands": 30,
+      "rows_per_band": 4,
+      "top_k": 10,
+      "num_candidates": 264,
+      "candidate_ratio": 4.694308497685252e-06,
+      "signature_seconds": 0.11596670799190179,
+      "candidate_seconds": 0.4477080840151757,
+      "verification_seconds": 0.025092999974731356,
+      "total_seconds": 0.5887677919818088,
+      "verified_pairs": 264,
+      "recall_at_k": 0.00452758702344305,
+      "signature_mae": 0.00955082442322361,
+      "signature_corr": 0.9835357043915182,
+      "speedup_vs_baseline": 1.0872405347699208
+    },
+    {
+      "run_name": "k120_b60_r2",
+      "num_hashes": 120,
+      "bands": 60,
+      "rows_per_band": 2,
+      "top_k": 10,
+      "num_candidates": 49222,
+      "candidate_ratio": 0.0008752395942161496,
+      "signature_seconds": 0.12003887497121468,
+      "candidate_seconds": 0.8154180829878896,
+      "verification_seconds": 0.8550016670487821,
+      "total_seconds": 1.7904586250078864,
+      "verified_pairs": 49222,
+      "recall_at_k": 0.311977267345489,
+      "signature_mae": 0.00955082442322361,
+      "signature_corr": 0.9835357043915182,
+      "speedup_vs_baseline": 0.35752415614004357
+    },
+    {
+      "run_name": "k120_b120_r1",
+      "num_hashes": 120,
+      "bands": 120,
+      "rows_per_band": 1,
+      "top_k": 10,
+      "num_candidates": 560653,
+      "candidate_ratio": 0.009969235386942159,
+      "signature_seconds": 0.11923537502298132,
+      "candidate_seconds": 2.300135749974288,
+      "verification_seconds": 1.4021546670119278,
+      "total_seconds": 3.821525792009197,
+      "verified_pairs": 560653,
+      "recall_at_k": 0.9586739284868577,
+      "signature_mae": 0.00955082442322361,
+      "signature_corr": 0.9835357043915182,
+      "speedup_vs_baseline": 0.16750697073617102
+    },
+    {
+      "run_name": "k200_b20_r10",
+      "num_hashes": 200,
+      "bands": 20,
+      "rows_per_band": 10,
+      "top_k": 10,
+      "num_candidates": 77,
+      "candidate_ratio": 1.3691733118248653e-06,
+      "signature_seconds": 0.18078312504803762,
+      "candidate_seconds": 0.40508933301316574,
+      "verification_seconds": 0.010516542010009289,
+      "total_seconds": 0.5963890000712126,
+      "verified_pairs": 77,
+      "recall_at_k": 0.0014586786644565474,
+      "signature_mae": 0.008057187372088177,
+      "signature_corr": 0.9899156148840502,
+      "speedup_vs_baseline": 1.0733467735541258
+    },
+    {
+      "run_name": "k200_b25_r8",
+      "num_hashes": 200,
+      "bands": 25,
+      "rows_per_band": 8,
+      "top_k": 10,
+      "num_candidates": 80,
+      "candidate_ratio": 1.4225177265712886e-06,
+      "signature_seconds": 0.18080279103014618,
+      "candidate_seconds": 0.48089674999937415,
+      "verification_seconds": 0.010277334018610418,
+      "total_seconds": 0.6719768750481308,
+      "verified_pairs": 80,
+      "recall_at_k": 0.0015155103007340753,
+      "signature_mae": 0.008057187372088177,
+      "signature_corr": 0.9899156148840502,
+      "speedup_vs_baseline": 0.952610473334752
+    },
+    {
+      "run_name": "k200_b50_r4",
+      "num_hashes": 200,
+      "bands": 50,
+      "rows_per_band": 4,
+      "top_k": 10,
+      "num_candidates": 493,
+      "candidate_ratio": 8.766265489995567e-06,
+      "signature_seconds": 0.2135917919804342,
+      "candidate_seconds": 0.7389217090094462,
+      "verification_seconds": 0.04034175002016127,
+      "total_seconds": 0.9928552510100417,
+      "verified_pairs": 493,
+      "recall_at_k": 0.007776462230641724,
+      "signature_mae": 0.008057187372088177,
+      "signature_corr": 0.9899156148840502,
+      "speedup_vs_baseline": 0.6447387052225331
+    },
+    {
+      "run_name": "k200_b100_r2",
+      "num_hashes": 200,
+      "bands": 100,
+      "rows_per_band": 2,
+      "top_k": 10,
+      "num_candidates": 73857,
+      "candidate_ratio": 0.0013132861466421959,
+      "signature_seconds": 0.18413145904196426,
+      "candidate_seconds": 1.394908917020075,
+      "verification_seconds": 0.9764512499677949,
+      "total_seconds": 2.555491626029834,
+      "verified_pairs": 73857,
+      "recall_at_k": 0.4479469571394743,
+      "signature_mae": 0.008057187372088177,
+      "signature_corr": 0.9899156148840502,
+      "speedup_vs_baseline": 0.2504927828717268
+    },
+    {
+      "run_name": "k200_b200_r1",
+      "num_hashes": 200,
+      "bands": 200,
+      "rows_per_band": 1,
+      "top_k": 10,
+      "num_candidates": 638841,
+      "candidate_ratio": 0.011359533087006608,
+      "signature_seconds": 0.18402987497393042,
+      "candidate_seconds": 3.800572915992234,
+      "verification_seconds": 1.4767922500032,
+      "total_seconds": 5.461395040969364,
+      "verified_pairs": 638841,
+      "recall_at_k": 0.9633057068434762,
+      "signature_mae": 0.008057187372088177,
+      "signature_corr": 0.9899156148840502,
+      "speedup_vs_baseline": 0.11721038383189138
+    }
+  ]
+}

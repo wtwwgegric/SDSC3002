@@ -1,0 +1,32 @@
+{
+  "step": "lsh",
+  "signature_seconds": 0.11806770804105327,
+  "candidate_seconds": 0.32726716698380187,
+  "verification_seconds": 0.025752833986189216,
+  "total_seconds": 0.47108770901104435,
+  "all_item_pairs": 56238315,
+  "candidate_ratio": 1.5114250844819941e-06,
+  "num_items": 10606,
+  "num_hashes": 120,
+  "seed": 42,
+  "bands": 20,
+  "rows_per_band": 6,
+  "num_candidates": 85,
+  "num_nontrivial_buckets": 1242,
+  "max_bucket_size": 4,
+  "mean_bucket_size": 2.0483091787439616,
+  "verified_pairs": 85,
+  "top_k": 10,
+  "verification_mode": "batched_sparse_dot",
+  "verification_batches": 81,
+  "verify_batch_size": 8192,
+  "signature_quality": {
+    "samples": 200,
+    "nonzero_pairs_available": 768843,
+    "mean_absolute_error": 0.00955082442322361,
+    "pearson_correlation": 0.9835357043915182
+  },
+  "created_at_epoch": 1775668433.508207,
+  "recall_at_k": 0.0016007577551503671,
+  "results_dir": "results/amazon_musical_instruments_5core/sweep_tuning_r1_r2_r4/runs/k120_b20_r6"
+}

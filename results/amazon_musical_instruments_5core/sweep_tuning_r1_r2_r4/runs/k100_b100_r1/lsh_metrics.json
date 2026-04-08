@@ -1,0 +1,32 @@
+{
+  "step": "lsh",
+  "signature_seconds": 0.1025478329975158,
+  "candidate_seconds": 1.9290572499739937,
+  "verification_seconds": 1.3902403329848312,
+  "total_seconds": 3.4218454159563407,
+  "all_item_pairs": 56238315,
+  "candidate_ratio": 0.009473310144516243,
+  "num_items": 10606,
+  "num_hashes": 100,
+  "seed": 42,
+  "bands": 100,
+  "rows_per_band": 1,
+  "num_candidates": 532763,
+  "num_nontrivial_buckets": 224878,
+  "max_bucket_size": 198,
+  "mean_bucket_size": 3.4040190681169347,
+  "verified_pairs": 532763,
+  "top_k": 10,
+  "verification_mode": "batched_sparse_dot",
+  "verification_batches": 10405,
+  "verify_batch_size": 8192,
+  "signature_quality": {
+    "samples": 200,
+    "nonzero_pairs_available": 768843,
+    "mean_absolute_error": 0.010135501978667145,
+    "pearson_correlation": 0.9828842516791316
+  },
+  "created_at_epoch": 1775668432.687708,
+  "recall_at_k": 0.9551598389770305,
+  "results_dir": "results/amazon_musical_instruments_5core/sweep_tuning_r1_r2_r4/runs/k100_b100_r1"
+}

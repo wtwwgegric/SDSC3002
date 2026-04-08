@@ -1,0 +1,32 @@
+{
+  "step": "lsh",
+  "signature_seconds": 0.05201499996474013,
+  "candidate_seconds": 0.6042274159844965,
+  "verification_seconds": 1.226648124982603,
+  "total_seconds": 1.8828905409318395,
+  "all_item_pairs": 56238315,
+  "candidate_ratio": 0.00561387730055568,
+  "num_items": 10606,
+  "num_hashes": 30,
+  "seed": 42,
+  "bands": 30,
+  "rows_per_band": 1,
+  "num_candidates": 315715,
+  "num_nontrivial_buckets": 67306,
+  "max_bucket_size": 135,
+  "mean_bucket_size": 3.4178082191780823,
+  "verified_pairs": 315715,
+  "top_k": 10,
+  "verification_mode": "batched_sparse_dot",
+  "verification_batches": 10319,
+  "verify_batch_size": 8192,
+  "signature_quality": {
+    "samples": 200,
+    "nonzero_pairs_available": 768843,
+    "mean_absolute_error": 0.020140752568274273,
+    "pearson_correlation": 0.9388009228939762
+  },
+  "created_at_epoch": 1775668840.820182,
+  "recall_at_k": 0.8464314468387403,
+  "results_dir": "results/amazon_musical_instruments_5core/tuning_r1_smallhash/h_30"
+}

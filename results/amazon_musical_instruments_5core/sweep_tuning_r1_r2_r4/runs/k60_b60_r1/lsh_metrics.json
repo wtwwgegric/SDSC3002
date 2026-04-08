@@ -1,0 +1,32 @@
+{
+  "step": "lsh",
+  "signature_seconds": 0.07298066699877381,
+  "candidate_seconds": 1.1857091669808142,
+  "verification_seconds": 1.2994994159671478,
+  "total_seconds": 2.558189249946736,
+  "all_item_pairs": 56238315,
+  "candidate_ratio": 0.0077447199476015595,
+  "num_items": 10606,
+  "num_hashes": 60,
+  "seed": 42,
+  "bands": 60,
+  "rows_per_band": 1,
+  "num_candidates": 435550,
+  "num_nontrivial_buckets": 134234,
+  "max_bucket_size": 128,
+  "mean_bucket_size": 3.418373884410805,
+  "verified_pairs": 435550,
+  "top_k": 10,
+  "verification_mode": "batched_sparse_dot",
+  "verification_batches": 10376,
+  "verify_batch_size": 8192,
+  "signature_quality": {
+    "samples": 200,
+    "nonzero_pairs_available": 768843,
+    "mean_absolute_error": 0.014565549850923868,
+    "pearson_correlation": 0.9633424534850112
+  },
+  "created_at_epoch": 1775668425.375136,
+  "recall_at_k": 0.9316978451337912,
+  "results_dir": "results/amazon_musical_instruments_5core/sweep_tuning_r1_r2_r4/runs/k60_b60_r1"
+}

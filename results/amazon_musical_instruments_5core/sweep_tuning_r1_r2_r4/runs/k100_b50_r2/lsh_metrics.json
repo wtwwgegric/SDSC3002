@@ -1,0 +1,32 @@
+{
+  "step": "lsh",
+  "signature_seconds": 0.10150604095542803,
+  "candidate_seconds": 0.681519792007748,
+  "verification_seconds": 0.8124994579702616,
+  "total_seconds": 1.5955252909334376,
+  "all_item_pairs": 56238315,
+  "candidate_ratio": 0.0006337849916022555,
+  "num_items": 10606,
+  "num_hashes": 100,
+  "seed": 42,
+  "bands": 50,
+  "rows_per_band": 2,
+  "num_candidates": 35643,
+  "num_nontrivial_buckets": 16776,
+  "max_bucket_size": 34,
+  "mean_bucket_size": 2.4724606580829755,
+  "verified_pairs": 35643,
+  "top_k": 10,
+  "verification_mode": "batched_sparse_dot",
+  "verification_batches": 8084,
+  "verify_batch_size": 8192,
+  "signature_quality": {
+    "samples": 200,
+    "nonzero_pairs_available": 768843,
+    "mean_absolute_error": 0.010135501978667145,
+    "pearson_correlation": 0.9828842516791316
+  },
+  "created_at_epoch": 1775668428.900245,
+  "recall_at_k": 0.27175941273975845,
+  "results_dir": "results/amazon_musical_instruments_5core/sweep_tuning_r1_r2_r4/runs/k100_b50_r2"
+}

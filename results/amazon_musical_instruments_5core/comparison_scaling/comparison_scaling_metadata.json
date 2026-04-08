@@ -1,0 +1,21 @@
+{
+  "artifacts_dir": "artifacts/amazon_musical_instruments_5core",
+  "results_dir": "results/amazon_musical_instruments_5core/comparison_scaling",
+  "max_items_list": [
+    500,
+    1000,
+    1500,
+    2000,
+    3000,
+    4000,
+    5000,
+    6500,
+    8500,
+    10606
+  ],
+  "top_k": 10,
+  "num_hashes": 100,
+  "bands": 50,
+  "seed": 42,
+  "first_subset_where_lsh_beats_sparse_exact": null
+}
